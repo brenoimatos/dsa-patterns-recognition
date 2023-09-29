@@ -1,0 +1,30 @@
+.container {
+    width: 70%;
+    text-align: left;
+    border: 1px solid #ccc;
+    margin: 0;
+}
+
+.title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 0;
+}
+
+/* make the content wrap lines */
+.content {
+    font-size: 1.5rem;
+    max-width: 100%;
+    margin: 0px 10px;
+}
+
+.content img, .content pre {
+    max-width: 100%;
+    white-space: pre-wrap;
+}
+
+.difficulty {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-top: 0.3rem;
+}
