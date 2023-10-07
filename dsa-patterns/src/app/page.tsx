@@ -21,6 +21,7 @@ export default function Page() {
   console.log("Page component rendered");
   const fetchData = async () => {
     console.log("fetchData called");
+    // TODO remove localhost
     const res = await fetch("http://localhost:3000/api/question");
     if (!res.ok) {
       console.error("Failed to fetch:", res.statusText);
