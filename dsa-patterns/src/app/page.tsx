@@ -4,16 +4,36 @@ import styles from '../styles/Home.module.css'
 import { revalidatePath } from 'next/cache'
 import { getQuestionData } from '../lib/helpers'
 import { Metadata } from 'next'
+import { cookies } from 'next/headers'
+
+const QUESTION_SLUGS_COOKIES = 'doneQuestionsSlugs'
 
 export const metadata: Metadata = {
   title: 'LeetCode Pattern Recognition',
 }
 
 export default async function Page() {
-  const question = await getQuestionData()
+  let cookie = '[]'
+  if (cookies().has(QUESTION_SLUGS_COOKIES)) {
+    cookie = cookies().get(QUESTION_SLUGS_COOKIES)?.value as string
+  }
+
+  const doneQuestionsSlugs = JSON.parse(cookie)
+  console.log(doneQuestionsSlugs)
+
+  try {
+    const question = await getQuestionData(doneQuestionsSlugs)
+  } catch (e) {
+    console.log(e)
+    return <div>Something went wrong</div>
+  }
+
   const getNewQuestion = async () => {
     'use server'
-
+    cookies().set(
+      QUESTION_SLUGS_COOKIES,
+      JSON.stringify([...doneQuestionsSlugs, question.titleSlug])
+    )
     revalidatePath('/')
   }
   return (
