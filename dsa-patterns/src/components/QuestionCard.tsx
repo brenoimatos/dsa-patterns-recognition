@@ -1,7 +1,7 @@
-import { QuestionProps } from "../types/question";
-import styles from "../styles/QuestionCard.module.css";
+import { Question } from '../types/question'
+import styles from '../styles/QuestionCard.module.css'
 
-const QuestionCard = ({ question }: { question: QuestionProps }) => {
+const QuestionCard = ({ question }: { question: Question }) => {
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>{question.title}</h2>
@@ -11,7 +11,7 @@ const QuestionCard = ({ question }: { question: QuestionProps }) => {
         dangerouslySetInnerHTML={{ __html: question.content }}
       />
     </div>
-  );
-};
+  )
+}
 
-export default QuestionCard;
+export default QuestionCard

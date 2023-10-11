@@ -1,26 +1,27 @@
-import React, { useState } from "react";
-import { QuestionProps } from "../types/question";
-import styles from "../styles/MultipleChoice.module.css";
+'use client'
+import React, { useState } from 'react'
+import { Question } from '../types/question'
+import styles from '../styles/MultipleChoice.module.css'
 
-const MultipleChoice = ({ question }: { question: QuestionProps }) => {
-  const [selectedChoice, setSelectedChoice] = useState<string | null>(null);
-  const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
-  const choices = ["Array", "DP", "Backtracking", "Graph", "DFS", "BFS"];
+const MultipleChoice = ({ question }: { question: Question }) => {
+  const [selectedChoice, setSelectedChoice] = useState<string | null>(null)
+  const [isCorrect, setIsCorrect] = useState<boolean | null>(null)
+  const choices = ['Array', 'DP', 'Backtracking', 'Graph', 'DFS', 'BFS']
 
   const handleChoiceSelection = (choice: string) => {
-    setSelectedChoice(choice);
+    setSelectedChoice(choice)
 
     if (question.topicTags.some((tag) => tag.name === choice)) {
-      setIsCorrect(true);
+      setIsCorrect(true)
     } else {
-      setIsCorrect(false);
+      setIsCorrect(false)
     }
-  };
+  }
 
   return (
     <div className={styles.container}>
       <h2>Multiple Choice</h2>
-      <h3>{question.topicTags.map((tag) => tag.name).join(", ")}</h3>
+      <h3>{question.topicTags.map((tag) => tag.name).join(', ')}</h3>
       <div className={styles.questions}>
         {choices.map((choice, index) => (
           <button
@@ -32,15 +33,15 @@ const MultipleChoice = ({ question }: { question: QuestionProps }) => {
                 ? isCorrect
                   ? styles.correct
                   : styles.incorrect
-                : "",
-            ].join(" ")}
+                : '',
+            ].join(' ')}
           >
             {choice}
           </button>
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default MultipleChoice;
+export default MultipleChoice

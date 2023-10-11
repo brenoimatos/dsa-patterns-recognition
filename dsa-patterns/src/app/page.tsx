@@ -1,52 +1,27 @@
-"use client";
-import Head from "next/head";
-import QuestionCard from "../components/QuestionCard";
-import MultipleChoice from "../components/MultipleChoice";
-import styles from "../styles/Home.module.css";
-import { useEffect, useState } from "react";
-import { QuestionProps } from "../types/question";
+import QuestionCard from '../components/QuestionCard'
+import MultipleChoice from '../components/MultipleChoice'
+import styles from '../styles/Home.module.css'
+import { revalidatePath } from 'next/cache'
+import { getQuestionData } from '../lib/helpers'
+import { Metadata } from 'next'
 
-const initialQuestionState: QuestionProps = {
-  _id: "",
-  title: "",
-  titleSlug: "",
-  content: "",
-  difficulty: "",
-  acRate: 0,
-  topicTags: [],
-};
+export const metadata: Metadata = {
+  title: 'LeetCode Pattern Recognition',
+}
 
-export default function Page() {
-  const [question, setQuestion] = useState<QuestionProps>(initialQuestionState);
-  const fetchData = async () => {
-    // TODO remove localhost
-    const res = await fetch("http://localhost:3000/api/question");
-    if (!res.ok) {
-      console.error("Failed to fetch:", res.statusText);
-      return;
-    }
-    const data = await res.json();
-    console.log(data.question);
-    setQuestion(data.question);
-  };
-  useEffect(() => {
-    console.log("useEffect");
-    fetchData().catch(console.error);
-  }, []);
-  console.log(question);
+export default async function Page() {
+  const question = await getQuestionData()
+  const getNewQuestion = async () => {
+    'use server'
 
-  async function handleClick() {
-    console.log("clicked");
-    await fetchData();
+    revalidatePath('/')
   }
   return (
     <div className="container">
-      <Head>
-        <title>LeetCode Pattern Recognition</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <main>
-        <button onClick={handleClick}>Click </button>
+        <form action={getNewQuestion}>
+          <button type="submit">Next Question</button>
+        </form>
         <div className={styles.title}>
           <h1>LeetCode Pattern Recognition</h1>
         </div>
@@ -56,5 +31,5 @@ export default function Page() {
         </div>
       </main>
     </div>
-  );
+  )
 }
