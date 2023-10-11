@@ -1,12 +1,13 @@
 import QuestionCard from '../components/QuestionCard'
 import MultipleChoice from '../components/MultipleChoice'
 import styles from '../styles/Home.module.css'
-import { revalidatePath } from 'next/cache'
 import { getQuestionData } from '../lib/helpers'
 import { Metadata } from 'next'
 import { cookies } from 'next/headers'
-
-const QUESTION_SLUGS_COOKIES = 'doneQuestionsSlugs'
+import { Question } from '../types/question'
+import { QUESTION_SLUGS_COOKIES } from '../lib/constants'
+import { revalidatePath } from 'next/cache'
+import { clearCookies } from './actions'
 
 export const metadata: Metadata = {
   title: 'LeetCode Pattern Recognition',
@@ -18,15 +19,21 @@ export default async function Page() {
     cookie = cookies().get(QUESTION_SLUGS_COOKIES)?.value as string
   }
 
-  const doneQuestionsSlugs = JSON.parse(cookie)
-  console.log(doneQuestionsSlugs)
+  const doneQuestionsSlugs = JSON.parse(cookie) as string[]
+  const result = await getQuestionData(doneQuestionsSlugs)
 
-  try {
-    const question = await getQuestionData(doneQuestionsSlugs)
-  } catch (e) {
-    console.log(e)
-    return <div>Something went wrong</div>
+  if (result.errorMessage) {
+    return (
+      <div>
+        {result.errorMessage}
+        <form action={clearCookies}>
+          <button type="submit">Clear history</button>
+        </form>
+      </div>
+    )
   }
+
+  const question = result.question as Question
 
   const getNewQuestion = async () => {
     'use server'
@@ -36,6 +43,7 @@ export default async function Page() {
     )
     revalidatePath('/')
   }
+
   return (
     <div className="container">
       <main>
