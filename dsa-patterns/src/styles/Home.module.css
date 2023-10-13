@@ -1,9 +1,5 @@
-.title {
-    text-align: center;
-}
-
 .grid {
-    display: flex;
-    flex-direction: row;
-    grid-gap: 1rem;
+  display: flex;
+  flex-direction: row;
+  grid-gap: 1rem;
 }

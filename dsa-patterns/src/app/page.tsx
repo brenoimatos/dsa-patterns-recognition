@@ -44,9 +44,6 @@ export default async function Page() {
     <div className="container">
       <Nav getNewQuestionWithSetCookie={getNewQuestionWithSetCookie} />
       <main>
-        <div className={styles.title}>
-          <h1>LeetCode Pattern Recognition</h1>
-        </div>
         <div className={styles.grid}>
           {<QuestionCard question={question} />}
           {<MultipleChoice question={question} />}
