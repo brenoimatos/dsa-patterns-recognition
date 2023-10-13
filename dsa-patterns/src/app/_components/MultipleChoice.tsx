@@ -1,20 +1,40 @@
 'use client'
-import React, { useState } from 'react'
-import { Question } from '../types/question'
-import styles from '../styles/MultipleChoice.module.css'
+import React, { useEffect, useState } from 'react'
+import { Question } from '../../types/question'
+import styles from '../../styles/MultipleChoice.module.css'
 
 const MultipleChoice = ({ question }: { question: Question }) => {
   const [selectedChoice, setSelectedChoice] = useState<string | null>(null)
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null)
+  const [firstAnswerRecorded, setFirstAnswerRecorded] = useState(false)
   const choices = ['Array', 'DP', 'Backtracking', 'Graph', 'DFS', 'BFS']
+
+  useEffect(() => {
+    setSelectedChoice(null)
+    setIsCorrect(null)
+    setFirstAnswerRecorded(false)
+  }, [question])
 
   const handleChoiceSelection = (choice: string) => {
     setSelectedChoice(choice)
 
-    if (question.topicTags.some((tag) => tag.name === choice)) {
-      setIsCorrect(true)
-    } else {
-      setIsCorrect(false)
+    const correct = question.topicTags.some((tag) => tag.name === choice)
+    setIsCorrect(correct)
+
+    if (!firstAnswerRecorded) {
+      // Registrar a primeira resposta no localStorage
+      const stats = JSON.parse(
+        localStorage.getItem('stats') || '{ "corrects": 0, "wrongs": 0 }'
+      )
+
+      if (correct) {
+        stats.corrects++
+      } else {
+        stats.wrongs++
+      }
+
+      localStorage.setItem('stats', JSON.stringify(stats))
+      setFirstAnswerRecorded(true)
     }
   }
 

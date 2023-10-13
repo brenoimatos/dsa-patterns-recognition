@@ -1,5 +1,5 @@
-import { Question } from '../types/question'
-import styles from '../styles/QuestionCard.module.css'
+import { Question } from '../../types/question'
+import styles from '../../styles/QuestionCard.module.css'
 
 const QuestionCard = ({ question }: { question: Question }) => {
   return (

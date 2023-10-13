@@ -1,5 +1,5 @@
-import QuestionCard from '../components/QuestionCard'
-import MultipleChoice from '../components/MultipleChoice'
+import QuestionCard from './_components/QuestionCard'
+import MultipleChoice from './_components/MultipleChoice'
 import styles from '../styles/Home.module.css'
 import { getQuestionData } from '../lib/helpers'
 import { Metadata } from 'next'
@@ -7,7 +7,7 @@ import { cookies } from 'next/headers'
 import { Question } from '../types/question'
 import { QUESTION_SLUGS_COOKIES } from '../lib/constants'
 import { clearCookies, getNewQuestion } from './actions'
-import Nav from './components/Nav'
+import Nav from './_components/Nav'
 
 export const metadata: Metadata = {
   title: 'LeetCode Pattern Recognition',
