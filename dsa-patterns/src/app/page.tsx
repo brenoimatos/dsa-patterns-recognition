@@ -6,8 +6,8 @@ import { Metadata } from 'next'
 import { cookies } from 'next/headers'
 import { Question } from '../types/question'
 import { QUESTION_SLUGS_COOKIES } from '../lib/constants'
-import { revalidatePath } from 'next/cache'
-import { clearCookies } from './actions'
+import { clearCookies, getNewQuestion } from './actions'
+import Nav from './components/Nav'
 
 export const metadata: Metadata = {
   title: 'LeetCode Pattern Recognition',
@@ -34,22 +34,16 @@ export default async function Page() {
   }
 
   const question = result.question as Question
-
-  const getNewQuestion = async () => {
-    'use server'
-    cookies().set(
-      QUESTION_SLUGS_COOKIES,
-      JSON.stringify([...doneQuestionsSlugs, question.titleSlug])
-    )
-    revalidatePath('/')
-  }
+  const getNewQuestionWithSetCookie = getNewQuestion.bind(
+    null,
+    doneQuestionsSlugs,
+    question
+  )
 
   return (
     <div className="container">
+      <Nav getNewQuestionWithSetCookie={getNewQuestionWithSetCookie} />
       <main>
-        <form action={getNewQuestion}>
-          <button type="submit">Next Question</button>
-        </form>
         <div className={styles.title}>
           <h1>LeetCode Pattern Recognition</h1>
         </div>
