@@ -12,7 +12,7 @@ const Nav = (props: Props) => {
   return (
     <nav className={styles.container}>
       <h1 className={styles.title}>LeetCode Pattern Recognition</h1>
-      <Score question={props.question} />
+      <Score />
       <form action={props.getNewQuestionWithSetCookie}>
         <button className={styles.nextQuestionButton} type="submit">
           Next Question
