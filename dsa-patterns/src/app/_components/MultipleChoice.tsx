@@ -2,8 +2,10 @@
 import React, { useEffect, useState } from 'react'
 import { Question } from '../../types/question'
 import styles from '../../styles/MultipleChoice.module.css'
+import { useScore } from '../_hooks/useScore'
 
 const MultipleChoice = ({ question }: { question: Question }) => {
+  const { score, updateScore } = useScore()
   const [selectedChoice, setSelectedChoice] = useState<string | null>(null)
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null)
   const [firstAnswerRecorded, setFirstAnswerRecorded] = useState(false)
@@ -22,18 +24,8 @@ const MultipleChoice = ({ question }: { question: Question }) => {
     setIsCorrect(correct)
 
     if (!firstAnswerRecorded) {
-      // Registrar a primeira resposta no localStorage
-      const stats = JSON.parse(
-        localStorage.getItem('stats') || '{ "corrects": 0, "wrongs": 0 }'
-      )
-
-      if (correct) {
-        stats.corrects++
-      } else {
-        stats.wrongs++
-      }
-
-      localStorage.setItem('stats', JSON.stringify(stats))
+      updateScore(correct)
+      console.log('updating score', score)
       setFirstAnswerRecorded(true)
     }
   }

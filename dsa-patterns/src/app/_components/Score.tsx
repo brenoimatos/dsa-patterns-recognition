@@ -1,9 +1,14 @@
-import React from 'react'
+'use client'
+import { useScore } from '../_hooks/useScore'
 
-type Props = {}
+const Score = () => {
+  const { score } = useScore()
 
-const Score = (props: Props) => {
-  return <div>Score</div>
+  return (
+    <div>
+      Score: Corrects: {score.corrects}, Wrongs: {score.wrongs}
+    </div>
+  )
 }
 
 export default Score

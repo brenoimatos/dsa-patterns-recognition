@@ -42,7 +42,10 @@ export default async function Page() {
 
   return (
     <div className="container">
-      <Nav getNewQuestionWithSetCookie={getNewQuestionWithSetCookie} />
+      <Nav
+        getNewQuestionWithSetCookie={getNewQuestionWithSetCookie}
+        question={question}
+      />
       <main>
         <div className={styles.grid}>
           {<QuestionCard question={question} />}
