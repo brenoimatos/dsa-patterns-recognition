@@ -1,13 +1,12 @@
 import { Question } from '../../types/question'
-import styles from '../../styles/QuestionCard.module.css'
 
 const QuestionCard = ({ question }: { question: Question }) => {
   return (
-    <div className={styles.container}>
-      <h2 className={styles.title}>{question.title}</h2>
-      <p className={styles.difficulty}>({question.difficulty})</p>
+    <div className="w-5/6 text-left border border-gray-300 p-4">
+      <h2 className="text-center text-2xl">{question.title}</h2>
+      <p className="text-center text-1.5rem mt-3">{question.difficulty}</p>
       <div
-        className={styles.content}
+        className="content text-1.5rem max-w-full mx-4"
         dangerouslySetInnerHTML={{ __html: question.content }}
       />
     </div>

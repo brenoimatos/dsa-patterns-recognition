@@ -1,7 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import { Question } from '../../types/question'
-import styles from '../../styles/MultipleChoice.module.css'
 import { useScore } from '../_hooks/useScore'
 
 const MultipleChoice = ({ question }: { question: Question }) => {
@@ -9,7 +8,7 @@ const MultipleChoice = ({ question }: { question: Question }) => {
   const [selectedChoice, setSelectedChoice] = useState<string | null>(null)
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null)
   const [firstAnswerRecorded, setFirstAnswerRecorded] = useState(false)
-  const choices = ['Array', 'DP', 'Backtracking', 'Graph', 'DFS', 'BFS']
+  const choices = ['Array', 'Hash Table', 'Backtracking', 'String', 'DFS']
 
   useEffect(() => {
     setSelectedChoice(null)
@@ -31,22 +30,23 @@ const MultipleChoice = ({ question }: { question: Question }) => {
   }
 
   return (
-    <div className={styles.container}>
-      <h2>Multiple Choice</h2>
-      <h3>{question.topicTags.map((tag) => tag.name).join(', ')}</h3>
-      <div className={styles.questions}>
+    <div className="container w-1/2 border border-gray-300 p-4">
+      <h2 className="text-3xl font-bold text-center">Multiple Choice</h2>
+      <h3 className="text-lg">
+        {question.topicTags.map((tag) => tag.name).join(', ')}
+      </h3>
+      <div className="flex flex-col items-center text-left gap-3">
         {choices.map((choice, index) => (
           <button
             key={index}
             onClick={() => handleChoiceSelection(choice)}
-            className={[
-              styles.choice,
+            className={`text-lg p-3 rounded-xl w-3/4 text-left ${
               selectedChoice === choice
                 ? isCorrect
-                  ? styles.correct
-                  : styles.incorrect
-                : '',
-            ].join(' ')}
+                  ? 'bg-green-500 text-white'
+                  : 'bg-red-500 text-white'
+                : 'bg-slate-200 text-gray-700 hover:bg-slate-300'
+            }`}
           >
             {choice}
           </button>

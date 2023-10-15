@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.content img,
+.content pre {
+  max-width: 100%;
+  white-space: pre-wrap;
+}
+
+/* make the content wrap lines */
+.content {
+  font-size: 1.5rem;
+  max-width: 100%;
+  margin: 0px 10px;
+}

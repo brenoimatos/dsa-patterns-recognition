@@ -1,6 +1,5 @@
 import QuestionCard from './_components/QuestionCard'
 import MultipleChoice from './_components/MultipleChoice'
-import styles from '../styles/Home.module.css'
 import { getQuestionData } from '../lib/helpers'
 import { Metadata } from 'next'
 import { cookies } from 'next/headers'
@@ -8,6 +7,7 @@ import { Question } from '../types/question'
 import { QUESTION_SLUGS_COOKIES } from '../lib/constants'
 import { clearCookies, getNewQuestion } from './actions'
 import Nav from './_components/Nav'
+import '../styles/globals.css'
 
 export const metadata: Metadata = {
   title: 'LeetCode Pattern Recognition',
@@ -41,13 +41,13 @@ export default async function Page() {
   )
 
   return (
-    <div className="container">
+    <div>
       <Nav
         getNewQuestionWithSetCookie={getNewQuestionWithSetCookie}
         question={question}
       />
       <main>
-        <div className={styles.grid}>
+        <div className="flex flex-row gap-4">
           {<QuestionCard question={question} />}
           {<MultipleChoice question={question} />}
         </div>

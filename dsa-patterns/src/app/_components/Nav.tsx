@@ -1,6 +1,5 @@
 import React from 'react'
 import Score from './Score'
-import styles from '../../styles/Nav.module.css'
 import { Question } from '../../types/question'
 
 type Props = {
@@ -10,11 +9,15 @@ type Props = {
 
 const Nav = (props: Props) => {
   return (
-    <nav className={styles.container}>
-      <h1 className={styles.title}>LeetCode Pattern Recognition</h1>
+    <nav className="flex flex-col gap-2 items-center border border-gray-300 p-4">
+      <h1 className="text-xl title font-bold">LeetCode Pattern Recognition</h1>
       <Score />
-      <form action={props.getNewQuestionWithSetCookie}>
-        <button className={styles.nextQuestionButton} type="submit">
+      <form>
+        <button
+          formAction={props.getNewQuestionWithSetCookie}
+          className="mt-2 mb-4 px-2 py-1 rounded-lg bg-blue-800 text-white cursor-pointer"
+          type="submit"
+        >
           Next Question
         </button>
       </form>
