@@ -3,10 +3,10 @@ import { Question } from '../../types/question'
 const QuestionCard = ({ question }: { question: Question }) => {
   return (
     <div className="w-5/6 text-left border border-gray-300 p-4">
-      <h2 className="text-center text-2xl">{question.title}</h2>
-      <p className="text-center text-1.5rem mt-3">{question.difficulty}</p>
+      <h2 className="text-center text-3xl">{question.title}</h2>
+      <p className="text-center text-lg mt-2 mb-4">({question.difficulty})</p>
       <div
-        className="content text-1.5rem max-w-full mx-4"
+        className="content text-lg max-w-full mx-4"
         dangerouslySetInnerHTML={{ __html: question.content }}
       />
     </div>
