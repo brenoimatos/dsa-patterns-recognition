@@ -18,7 +18,7 @@ const Nav = (props: Props) => {
         <form>
           <button
             formAction={props.getNewQuestionWithSetCookie}
-            className="px-2 py-1 rounded-lg bg-blue-800 text-white cursor-pointer"
+            className="px-2 py-1 rounded-lg bg-blue-800 hover:bg-blue-900 text-white cursor-pointer"
             type="submit"
           >
             Next Question
