@@ -3,12 +3,17 @@ import React, { useEffect, useState } from 'react'
 import { Question } from '../../types/question'
 import { useScore } from '../_hooks/useScore'
 
-const MultipleChoice = ({ question }: { question: Question }) => {
+const MultipleChoice = ({
+  question,
+  choices,
+}: {
+  question: Question
+  choices: string[]
+}) => {
   const { score, updateScore } = useScore()
   const [selectedChoice, setSelectedChoice] = useState<string | null>(null)
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null)
   const [firstAnswerRecorded, setFirstAnswerRecorded] = useState(false)
-  const choices = ['Array', 'Hash Table', 'Backtracking', 'String', 'DFS']
 
   useEffect(() => {
     setSelectedChoice(null)

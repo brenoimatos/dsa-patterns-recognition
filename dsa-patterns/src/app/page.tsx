@@ -1,10 +1,10 @@
 import QuestionCard from './_components/QuestionCard'
 import MultipleChoice from './_components/MultipleChoice'
-import { getQuestionData } from '../lib/helpers'
+import { getQuestionData, getRandomChoices } from '../lib/helpers'
 import { Metadata } from 'next'
 import { cookies } from 'next/headers'
 import { Question } from '../types/question'
-import { QUESTION_SLUGS_COOKIES } from '../lib/constants'
+import { QUESTION_SLUGS_COOKIES, TOPIC_TAGS } from '../lib/constants'
 import { clearCookies, getNewQuestion } from './actions'
 import Nav from './_components/Nav'
 import '../styles/globals.css'
@@ -34,11 +34,16 @@ export default async function Page() {
   }
 
   const question = result.question as Question
+
   const getNewQuestionWithSetCookie = getNewQuestion.bind(
     null,
     doneQuestionsSlugs,
     question
   )
+
+  const questionTags = question.topicTags.map((q) => q.name)
+  // TODO: make hierarchy of topic tags
+  const randomChoices = getRandomChoices(questionTags, TOPIC_TAGS)
 
   return (
     <div>
@@ -49,7 +54,7 @@ export default async function Page() {
       <main>
         <div className="flex flex-row gap-4">
           {<QuestionCard question={question} />}
-          {<MultipleChoice question={question} />}
+          {<MultipleChoice question={question} choices={randomChoices} />}
         </div>
       </main>
     </div>

@@ -36,3 +36,16 @@ export async function getQuestionData(
     }
   }
 }
+
+export const getRandomChoices = (questionTags: string[], allTags: string[]) => {
+  const otherTags = allTags.filter((tag) => !questionTags.includes(tag))
+
+  const shuffleArray = (array: string[]) => {
+    return array.sort(() => Math.random() - 0.5)
+  }
+  const randomChoices = shuffleArray(otherTags).slice(0, 4)
+  const correctChoice = questionTags[0]
+  randomChoices.push(correctChoice)
+
+  return shuffleArray(randomChoices)
+}
