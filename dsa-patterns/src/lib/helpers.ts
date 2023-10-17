@@ -1,5 +1,6 @@
 import { db } from '../lib/mongodb'
 import { Question } from '../types/question'
+import { TAG_HIERARCHY } from './constants'
 
 interface QuestionDataResult {
   question: Question | null
@@ -37,14 +38,30 @@ export async function getQuestionData(
   }
 }
 
-export const getRandomChoices = (questionTags: string[], allTags: string[]) => {
-  const otherTags = allTags.filter((tag) => !questionTags.includes(tag))
+const getBestTag = (tags: string[]) => {
+  let bestTag = null
+  let bestPosition = Infinity
+
+  for (const tag of tags) {
+    const position = TAG_HIERARCHY.indexOf(tag)
+    if (position !== -1 && position < bestPosition) {
+      bestTag = tag
+      bestPosition = position
+    }
+  }
+
+  return bestTag || tags[0] // Se nenhum tag estiver na hierarquia, retorne o primeiro da lista
+}
+
+export const getRandomChoices = (questionTags: string[]) => {
+  const otherTags = TAG_HIERARCHY.filter((tag) => !questionTags.includes(tag))
 
   const shuffleArray = (array: string[]) => {
     return array.sort(() => Math.random() - 0.5)
   }
+
+  const correctChoice = getBestTag(questionTags) // Agora usa a função getBestTag para determinar a correctChoice
   const randomChoices = shuffleArray(otherTags).slice(0, 4)
-  const correctChoice = questionTags[0]
   randomChoices.push(correctChoice)
 
   return shuffleArray(randomChoices)

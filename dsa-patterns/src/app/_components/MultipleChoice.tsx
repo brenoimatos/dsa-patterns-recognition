@@ -29,7 +29,6 @@ const MultipleChoice = ({
 
     if (!firstAnswerRecorded) {
       updateScore(correct)
-      console.log('updating score', score)
       setFirstAnswerRecorded(true)
     }
   }

@@ -4,7 +4,7 @@ import { getQuestionData, getRandomChoices } from '../lib/helpers'
 import { Metadata } from 'next'
 import { cookies } from 'next/headers'
 import { Question } from '../types/question'
-import { QUESTION_SLUGS_COOKIES, TOPIC_TAGS } from '../lib/constants'
+import { QUESTION_SLUGS_COOKIES } from '../lib/constants'
 import { clearCookies, getNewQuestion } from './actions'
 import Nav from './_components/Nav'
 import '../styles/globals.css'
@@ -42,8 +42,7 @@ export default async function Page() {
   )
 
   const questionTags = question.topicTags.map((q) => q.name)
-  // TODO: make hierarchy of topic tags
-  const randomChoices = getRandomChoices(questionTags, TOPIC_TAGS)
+  const randomChoices = getRandomChoices(questionTags)
 
   return (
     <div>
