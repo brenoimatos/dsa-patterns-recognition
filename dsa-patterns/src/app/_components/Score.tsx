@@ -10,11 +10,11 @@ const Score = ({ side }: ScoreProps) => {
 
   return (
     <div
-      className={`bg-white border border-gray-400 p-2 rounded flex items-center ${
+      className={`border bg-slate-50 p-2 rounded-lg flex items-center ${
         side === 'left' ? 'mr-4' : 'ml-4'
       }`}
     >
-      <div className="text-2xl">{side === 'left' ? '❌:' : '✅:'}</div>
+      <div className="text-2xl">{side === 'left' ? '❌' : '✅'}</div>
       <div
         className={`text-4xl ${
           side === 'left' ? 'text-red-500' : 'text-green-500'

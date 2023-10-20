@@ -2,7 +2,7 @@ import { Question } from '../../types/question'
 
 const QuestionCard = ({ question }: { question: Question }) => {
   return (
-    <div className="w-5/6 text-left border border-gray-300 p-4">
+    <div className="w-5/6 text-left  p-4 shadow-lg">
       <h2 className="text-center text-3xl">{question.title}</h2>
       <p className="text-center text-lg mt-1 mb-4 text-slate-700">
         ({question.difficulty})

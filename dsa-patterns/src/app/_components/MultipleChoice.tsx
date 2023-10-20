@@ -10,7 +10,7 @@ const MultipleChoice = ({
   question: Question
   choices: string[]
 }) => {
-  const { score, updateScore } = useScore()
+  const { updateScore } = useScore()
   const [selectedChoice, setSelectedChoice] = useState<string | null>(null)
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null)
   const [firstAnswerRecorded, setFirstAnswerRecorded] = useState(false)
@@ -34,12 +34,9 @@ const MultipleChoice = ({
   }
 
   return (
-    <div className="container w-1/2 border border-gray-300 p-4">
+    <div className="container w-1/3 shadow-lg p-4">
       <h2 className="text-3xl font-bold text-center">Multiple Choice</h2>
-      <h3 className="text-lg">
-        {question.topicTags.map((tag) => tag.name).join(', ')}
-      </h3>
-      <div className="flex flex-col items-center text-left gap-3">
+      <div className="flex flex-col items-center text-left gap-3 mt-4">
         {choices.map((choice, index) => (
           <button
             key={index}
@@ -52,7 +49,9 @@ const MultipleChoice = ({
                 : 'bg-slate-200 text-gray-700 hover:bg-slate-300'
             }`}
           >
-            {choice}
+            {isCorrect && selectedChoice === choice
+              ? question.topicTags.map((tag) => tag.name).join(', ')
+              : choice}
           </button>
         ))}
       </div>
